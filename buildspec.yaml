@@ -1,0 +1,12 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - aws cloudformation package \
+         --template-file app_spec.yaml \
+         --s3-bucket momkid2 \
+         --output-template-file new_app_spec.yaml
+artifacts:
+  type: zip
+  files:
+    - new_app_spec.yaml
