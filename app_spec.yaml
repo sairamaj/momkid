@@ -1,6 +1,17 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Simple CRUD web service. State is stored in a DynamoDB table.
+
+Parameters:
+  Stage:
+    Type: String
+    AllowedValues:
+      - beta
+      - gamma
+      - prod
+    Default: beta
+    Description: Stage that can be added to resource names
+
 Resources:
   GetFunction:
     Type: AWS::Serverless::Function
@@ -24,6 +35,6 @@ Resources:
 Outputs:
   ApiUrl:
     Description: URL for application
-    Value: 'https://momkid.execute-api.us-west-2.amazonaws.com/staging'
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
     Export:
-      Name: 'staging'
+      Name: !Sub 'ApiUrl-${Stage}'
