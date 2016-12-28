@@ -24,6 +24,6 @@ Resources:
 Outputs:
   ApiUrl:
     Description: URL for application
-    Value: !Sub 'https://momkid.execute-api.us-west-2.amazonaws.com/staging'
+    Value: 'https://momkid.execute-api.us-west-2.amazonaws.com/staging'
     Export:
-      Name: !Sub 'ApiUrl-${Stage}'
+      Name: 'staging'
