@@ -3,6 +3,7 @@ exports.handler = function (event, context, callback) {
     var momRestaruant = require("./momrestaruant")
     var util = require("./util")
 
+    var response;
     momRestaruant.getOrders( function(err,orders){
         if( err){
             console.log(err)

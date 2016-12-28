@@ -1,29 +1,30 @@
 'use strict';
 var momrestaruant = require("./momrestaruant")
-var aws = require("./aws")
+var aws = require("./awsfunc")
+var util = require("./util")
 
 exports.handler = (event, context, callback) => {
     var menuItem = event.name;
+    var response;
     momrestaruant.addMenuItem(menuItem,function(err,response){
-        if(err){
-            callback(err,null)
+        if( err){
+            console.log(err)
+            response = util.createResponse(500, err);
+            context.fail(response);
         }else{
             aws.sendMenuItemAddedNotification(menuItem);
-            response.name = menuItem
-            callback(null,response)
+            response = util.createResponse(200, menuItem);
+            context.succeed(response);
         }
     });
 } 
 
 function sampleTest(){
-    var request = { "name":"Pasta1"}
-    exports.handler(request, null,function(err,response){
-        if(err){
-            console.log(err)
-        }else{
-            console.log(response)
-        }
-    })
+    var context = {}
+    context.succeed = function(resp){
+        console.log(resp)
+    }
+    exports.handler({name:"item1"}, context,null)
 }
 
 //sampleTest()
