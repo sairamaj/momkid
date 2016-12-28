@@ -1,2 +1,2 @@
-aws cloudformation package --template-file app_spec.yml --output-template-file new_app_spec.yml --s3-bucket momkid2
+aws cloudformation package --template-file app_spec.yaml --output-template-file new_app_spec.yaml --s3-bucket momkid
 

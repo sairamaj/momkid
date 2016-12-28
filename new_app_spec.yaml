@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Mom KID application
+Resources:
+  GetFunction:
+    Properties:
+      CodeUri: s3://momkid/b59595f4bfb330d9062d42d852f78a8e
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: Table
+      Events:
+        GetResource:
+          Properties:
+            Method: get
+            Path: /menuitems
+          Type: Api
+      Handler: getMenuItems.handler
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Runtime: nodejs4.3
+      Timeout: 10
+    Type: AWS::Serverless::Function
+  OrdersGetFunction:
+    Properties:
+      CodeUri: s3://momkid/b59595f4bfb330d9062d42d852f78a8e
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: Table
+      Events:
+        GetResource:
+          Properties:
+            Method: get
+            Path: /orders
+          Type: Api
+      Handler: getOrders.handler
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Runtime: nodejs4.3
+      Timeout: 10
+    Type: AWS::Serverless::Function
+  Table:
+    Type: AWS::Serverless::SimpleTable
+Transform: AWS::Serverless-2016-10-31

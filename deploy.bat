@@ -1,2 +1,3 @@
-aws cloudformation deploy --template-file new_app_spec.yml --stack-name momkid2 --capabilities CAPABILITY_IAM
+aws cloudformation deploy --template-file new_app_spec.yaml --stack-name momkid --capabilities CAPABILITY_IAM --parameter-overrides Stage=prod
+
 

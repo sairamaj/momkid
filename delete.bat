@@ -1,1 +1,1 @@
- aws cloudformation delete-stack --stack-name momkid2
+ aws cloudformation delete-stack --stack-name momkid

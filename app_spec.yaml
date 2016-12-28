@@ -1,16 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Simple CRUD web service. State is stored in a DynamoDB table.
-
-Parameters:
-  Stage:
-    Type: String
-    AllowedValues:
-      - beta
-      - gamma
-      - prod
-    Default: beta
-    Description: Stage that can be added to resource names
+Description: Mom KID application
 
 Resources:
   GetFunction:
@@ -19,7 +9,7 @@ Resources:
       Handler: getMenuItems.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
-      Timeout: 19
+      Timeout: 10
       Environment:
         Variables:
           TABLE_NAME: !Ref Table
@@ -29,12 +19,23 @@ Resources:
           Properties:
             Path: /menuitems
             Method: get
+
+  OrdersGetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getOrders.handler
+      Runtime: nodejs4.3
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: get
+
   Table:
     Type: AWS::Serverless::SimpleTable
-
-Outputs:
-  ApiUrl:
-    Description: URL for application
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
-    Export:
-      Name: !Sub 'MomKid-${Stage}'

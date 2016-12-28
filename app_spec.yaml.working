@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple CRUD web service. State is stored in a DynamoDB table.
+
+Parameters:
+  Stage:
+    Type: String
+    AllowedValues:
+      - beta
+      - gamma
+      - prod
+      - chumma
+    Description: Stage that can be added to resource names
+Outputs:
+  ApiUrl:
+    Description: URL for application
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/beta'
+    Export:
+      Name: !Sub 'ApiUrl-${Stage}'
+
+Resources:
+  GetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getMenuItems.handler
+      Runtime: nodejs4.3
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Timeout: 19
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /menuitems
+            Method: get
+  Table:
+    Type: AWS::Serverless::SimpleTable
+
+  Test:
+    Type: "AWS::ApiGateway::Stage"
+    Properties:
+      StageName: "beta"
+      RestApiId:
+          Ref: ServerlessRestApi
+      DeploymentId:
+         Ref: ServerlessRestApiDeployment
+  
+  TestDeploy:
+    Type: "AWS::ApiGateway::Deployment"
+    Properties:
+      StageName: "beta"
+      RestApiId:
+          Ref: ServerlessRestApi
+  
