@@ -20,3 +20,10 @@ Resources:
             Method: get
   Table:
     Type: AWS::Serverless::SimpleTable
+
+Outputs:
+  ApiUrl:
+    Description: URL for application
+    Value: !Sub 'https://momkid.execute-api.us-west-2.amazonaws.com/staging'
+    Export:
+      Name: !Sub 'ApiUrl-${Stage}'
