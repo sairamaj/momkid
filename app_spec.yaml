@@ -8,7 +8,7 @@ Resources:
       Handler: getMenuItems.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
-      Timeout: 18
+      Timeout: 19
       Environment:
         Variables:
           TABLE_NAME: !Ref Table
