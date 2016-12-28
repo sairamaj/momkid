@@ -37,4 +37,4 @@ Outputs:
     Description: URL for application
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
     Export:
-      Name: !Sub 'ApiUrl-${Stage}'
+      Name: !Sub 'MomKid-${Stage}'
