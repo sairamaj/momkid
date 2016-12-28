@@ -4,26 +4,26 @@ var aws = require("./aws")
 
 exports.handler = (event, context, callback) => {
     var menuItem = event.name;
+    var respose;
     momrestaruant.removeMenuItem(menuItem,function(err,response){
-        if(err){
-            callback(err,null)
+    if( err){
+            console.log(err)
+            response = util.createResponse(500, err);
+            context.fail(response);
         }else{
             aws.sendMenuItemRemovedNotification(menuItem);
-            response.name = menuItem
-            callback(null,response)
-        }
+            response = util.createResponse(200, menuItem);
+            context.succeed(response);
+        }        
     });
 } 
 
 function sampleTest(){
-    var request = { "name":"Pasta1"}
-    exports.handler(request, null,function(err,response){
-        if(err){
-            console.log(err)
-        }else{
-            console.log(response)
-        }
-    })
+    var context = {}
+    context.succeed = function(resp){
+        console.log(resp)
+    }
+    exports.handler(null, context,null)
 }
 
 //sampleTest()

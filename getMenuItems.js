@@ -17,13 +17,11 @@ exports.handler = function (event, context, callback) {
 }
 
 function sampleTest(){
-    exports.handler(null, null,function(err,response){
-        if(err){op
-            console.log(err)
-        }else{
-            console.log(response)
-        }
-    })
+    var context = {}
+    context.succeed = function(resp){
+        console.log(resp)
+    }
+    exports.handler(null, context,null)
 }
 
 //sampleTest()

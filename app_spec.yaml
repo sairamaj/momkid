@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: Mom KID application
 
 Resources:
-  GetFunction:
+  GetMenuItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: getMenuItems.handler
@@ -37,7 +37,24 @@ Resources:
             Path: /menuitems
             Method: post
             
-  OrdersGetFunction:
+  RemoveMenIemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: removeMenuItem.handler
+      Runtime: nodejs4.3
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /menuitems
+            Method: delete
+
+  GetOrdersFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: getOrders.handler
@@ -54,5 +71,21 @@ Resources:
             Path: /orders
             Method: get
 
+  AddOrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: addOrders.handler
+      Runtime: nodejs4.3
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: post
   Table:
     Type: AWS::Serverless::SimpleTable
