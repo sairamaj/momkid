@@ -20,6 +20,23 @@ Resources:
             Path: /menuitems
             Method: get
 
+  AddMenIemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getMenuItems.handler
+      Runtime: nodejs4.3
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /menuitems
+            Method: post
+            
   OrdersGetFunction:
     Type: AWS::Serverless::Function
     Properties:
