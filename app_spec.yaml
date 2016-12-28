@@ -23,7 +23,7 @@ Resources:
   AddMenIemFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: getMenuItems.handler
+      Handler: addMenuItem.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
       Timeout: 10
