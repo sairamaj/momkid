@@ -1,0 +1,7 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - npm install
+      - npm install --global mocha
+      - mocha test\integration.js
