@@ -5,10 +5,14 @@ var util = require("./util")
 
 exports.handler = (event, context, callback) => {
 
+    var menuItem = event.name
+    if(menuItem === undefined){
+        var menuItem = JSON.parse(event.body).name;
+    }
+
     const tableName = process.env.TABLE_NAME;
     console.log("removeMenuItems: tableName:" + tableName )
 
-    var menuItem = event.name;
     var respose;
     momrestaruant.removeMenuItem(tableName,menuItem,function(err,response){
     if( err){

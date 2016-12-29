@@ -3,26 +3,43 @@ var fs = require("fs")
 var strStream = require("string-to-stream")
 var request = require("request")
 
-describe('getMenuItems', function () {
-    var ramdomItem = "item_" + Math.floor(Math.random() * 100) + 1  
-    var item = "{\"name\":\"}" + randomItem + "\"}"; 
+var menuItemsApiUrl = "https://r4fuin5699.execute-api.us-west-2.amazonaws.com/Prod/menuitems"
+
+describe('menuItems tests ', function () {
+    this.timeout(15000);
+    var newItem = { name: "item_" + Math.floor(Math.random() * 100) + 1 }
     before(function (done) {
         // add menuitem
-        console.log("adding menuitem")
-        strStream(item).pipe(process.stdout)
-        //strStream("{name:\"item\"}").pipe(request.post("https://wstho6rba2.execute-api.us-west-2.amazonaws.com/Prod/menuitems"))
-        done()
+        strStream(JSON.stringify(newItem)).
+            pipe(request.post(menuItemsApiUrl, function (err, response) {
+                response.statusCode.should.equal(200, "addMenuItem returned non 200 status.")
+                console.log("added:" + JSON.stringify(newItem))
+                done()
+            }));
     });
 
     after(function (done) {
-        console.log("in after")
-        done()
+        strStream(JSON.stringify(newItem)).
+            pipe(request.del(menuItemsApiUrl, function (err, response) {
+                response.statusCode.should.equal(200, "removeMenuItem returned non 200 status.")
+                console.log(response.body)
+                console.log("removed:" + JSON.stringify(newItem))
+                done()
+            }));
     });
 
-    it('should get more than one menu item.', function (done) {
-        console.log("in test");
-        var items = ["item1","item2"]
-        items.length.should.eql(2)
-        done();
+    it('should get currenlty added new menu item.', function (done) {
+
+        request(menuItemsApiUrl, function (error, response, body) {
+            response.statusCode.should.equal(200, "getMeuItems returned non 200 status.")
+            var menuItems = JSON.parse(body)
+            console.log(menuItems)
+            var currentlyAdded = menuItems.filter(function (item) {
+                return item.name === newItem.name
+            })
+            console.log("checking:" + JSON.stringify(newItem))
+            currentlyAdded.length.should.eql(1, "not found" + JSON.stringify(newItem))
+            done();
+        })
     });
 });
