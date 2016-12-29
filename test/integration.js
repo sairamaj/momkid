@@ -15,7 +15,7 @@ describe('getMenuItems', function () {
     it('should get more than one menu item.', function (done) {
         console.log("in test");
         var items = ["item1","item2"]
-        items.length.should.eql(3)
+        items.length.should.eql(2)
         done();
     });
 });
