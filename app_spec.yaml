@@ -9,10 +9,11 @@ Resources:
       Handler: getMenuItems.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
+      CodeUri: src
       Timeout: 10
       Environment:
         Variables:
-          TABLE_NAME: !Ref Table
+          TABLE_NAME: !Ref MenuItemTable
       Events:
         GetResource:
           Type: Api
@@ -26,10 +27,11 @@ Resources:
       Handler: addMenuItem.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
+      CodeUri: src
       Timeout: 10
       Environment:
         Variables:
-          TABLE_NAME: !Ref Table
+          TABLE_NAME: !Ref MenuItemTable
       Events:
         GetResource:
           Type: Api
@@ -43,10 +45,11 @@ Resources:
       Handler: removeMenuItem.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
+      CodeUri: src
       Timeout: 10
       Environment:
         Variables:
-          TABLE_NAME: !Ref Table
+          TABLE_NAME: !Ref MenuItemTable
       Events:
         GetResource:
           Type: Api
@@ -60,10 +63,11 @@ Resources:
       Handler: getOrders.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
+      CodeUri: src
       Timeout: 10
       Environment:
         Variables:
-          TABLE_NAME: !Ref Table
+          TABLE_NAME: !Ref OrderTable
       Events:
         GetResource:
           Type: Api
@@ -77,15 +81,32 @@ Resources:
       Handler: addOrders.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
+      CodeUri: src
       Timeout: 10
       Environment:
         Variables:
-          TABLE_NAME: !Ref Table
+          TABLE_NAME: !Ref OrderTable
       Events:
         GetResource:
           Type: Api
           Properties:
             Path: /orders
             Method: post
-  Table:
+  MenuItemTable:
     Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+         Name: name
+         Type: String
+      ProvisionedThroughput:
+         ReadCapacityUnits: 5
+         WriteCapacityUnits: 5
+  OrderTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+         Name: confirmationId
+         Type: String
+      ProvisionedThroughput:
+         ReadCapacityUnits: 5
+         WriteCapacityUnits: 5
