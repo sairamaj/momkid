@@ -1,10 +1,10 @@
 /*
     All mom restaraunt functionalities.
 */
-var aws = require('./awsfunc')
+var aws = require('./awsFunc')
 
-function getMenuItems(callback){
-    aws.readDb("momrestaruantmenu", function(err,data){
+function getMenuItems(tableName, callback){
+    aws.readDb(tableName, function(err,data){
         if(err){
             callback(err,null)
         }else{
@@ -17,8 +17,8 @@ function getMenuItems(callback){
     })
 }
 
-function getOrders(callback){
-    aws.readDb("momrestaruantorders", function(err,data){
+function getOrders(tableName,callback){
+    aws.readDb(tableName, function(err,data){
         if(err){
             callback(err,null)
         }else{
@@ -32,7 +32,7 @@ function getOrders(callback){
     })
 }
 
-function saveOrder(confimrationId,menuitem,callback){
+function saveOrder(tableName,confimrationId,menuitem,callback){
     var confirmationId  = confimrationId;
     var date = Date()
     var data = {
@@ -41,27 +41,27 @@ function saveOrder(confimrationId,menuitem,callback){
         "date" : date
     } 
 
-    aws.writeDb("momrestaruantorders",data,function(err,status){
+    aws.writeDb(tableName,data,function(err,status){
             callback(err,status)
     })
 }
 
-function addMenuItem(menuItem,callback){
+function addMenuItem(tableName, menuItem,callback){
     var data = {
         "name": menuItem,
     } 
 
-    aws.writeDb("momrestaruantmenu",data,function(err,status){
+    aws.writeDb(tableName,data,function(err,status){
             callback(err,status)
     })
 }
 
-function removeMenuItem(menuItem,callback){
+function removeMenuItem(tableName,menuItem,callback){
     var key = {
         "name": menuItem,
     } 
 
-    aws.deleteDb("momrestaruantmenu",key,function(err,status){
+    aws.deleteDb(tableName,key,function(err,status){
             callback(err,status)
     })
 }

@@ -1,29 +1,26 @@
 'use strict';
-var momrestaruant = require("./momrestaruant")
-var aws = require("./aws")
+var momrestaruant = require("./momRestaruant")
+var aws = require("./awsFunc")
+var util = require("./util")
 
 exports.handler = (event, context, callback) => {
+
+    const tableName = process.env.TABLE_NAME;
+    console.log("removeMenuItems: tableName:" + tableName )
+
     var menuItem = event.name;
     var respose;
-    momrestaruant.removeMenuItem(menuItem,function(err,response){
+    momrestaruant.removeMenuItem(tableName,menuItem,function(err,response){
     if( err){
             console.log(err)
             response = util.createResponse(500, err);
             context.fail(response);
         }else{
             aws.sendMenuItemRemovedNotification(menuItem);
-            response = util.createResponse(200, menuItem);
+            response = util.createResponse(200, event);
             context.succeed(response);
         }        
     });
 } 
 
-function sampleTest(){
-    var context = {}
-    context.succeed = function(resp){
-        console.log(resp)
-    }
-    exports.handler(null, context,null)
-}
-
-//sampleTest()
+// util.sampleTest("momrestaruantmenu",{name:"item1"},exports.handler)

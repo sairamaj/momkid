@@ -26,7 +26,7 @@ Resources:
     Properties:
       Handler: addMenuItem.handler
       Runtime: nodejs4.3
-      Policies: AmazonDynamoDBReadOnlyAccess
+      Policies: AmazonDynamoDBFullAccess
       CodeUri: src
       Timeout: 10
       Environment:
@@ -44,7 +44,7 @@ Resources:
     Properties:
       Handler: removeMenuItem.handler
       Runtime: nodejs4.3
-      Policies: AmazonDynamoDBReadOnlyAccess
+      Policies: AmazonDynamoDBFullAccess
       CodeUri: src
       Timeout: 10
       Environment:
@@ -80,7 +80,7 @@ Resources:
     Properties:
       Handler: addOrders.handler
       Runtime: nodejs4.3
-      Policies: AmazonDynamoDBReadOnlyAccess
+      Policies: AmazonDynamoDBFullAccess
       CodeUri: src
       Timeout: 10
       Environment:
@@ -92,6 +92,7 @@ Resources:
           Properties:
             Path: /orders
             Method: post
+            
   MenuItemTable:
     Type: AWS::Serverless::SimpleTable
     Properties:

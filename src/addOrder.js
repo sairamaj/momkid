@@ -1,11 +1,15 @@
-var momrestaruant = require("./momrestaruant")
-var aws = require("./aws")
+var momrestaruant = require("./momRestaruant")
+var aws = require("./awsFunc")
 var util = require("./util")
 
 exports.handler = (event, context, callback) => {
+
+    const tableName = process.env.TABLE_NAME;
+    console.log("addOrder: tableName:" + tableName )
+
     var confirmationNumber = util.generateRandomString(15)
     var menuItem = event.name
-    momrestaruant.saveOrder(confirmationNumber,menuItem,function(err,response){
+    momrestaruant.saveOrder(tableName,confirmationNumber,menuItem,function(err,response){
         var response;
         if(err){
             console.log(err)
@@ -20,12 +24,4 @@ exports.handler = (event, context, callback) => {
     }) 
 };
 
-function sampleTest(){
-    var context = {}
-    context.succeed = function(resp){
-        console.log(resp)
-    }
-    exports.handler({name:"item1"}, context,null)
-}
-
-//sampleTest()
+// util.sampleTest("momrestaruantorders",{name:"pasta"},exports.handler)

@@ -1,10 +1,13 @@
+var momRestaruant = require("./momRestaruant")
+var util = require("./util")
+
 exports.handler = function (event, context, callback) {
 
-    var momRestaruant = require("./momrestaruant")
-    var util = require("./util")
+    const tableName = process.env.TABLE_NAME;
+    console.log("getOrders: tableName:" + tableName )
 
     var response;
-    momRestaruant.getOrders( function(err,orders){
+    momRestaruant.getOrders(tableName,function(err,orders){
         if( err){
             console.log(err)
             response = util.createResponse(500, err);
@@ -16,12 +19,4 @@ exports.handler = function (event, context, callback) {
     })
 }
 
-function sampleTest(){
-    var context = {}
-    context.succeed = function(resp){
-        console.log(resp)
-    }
-    exports.handler(null, context,null)
-}
-
-//sampleTest()
+// util.sampleTest("momrestaruantorders",null,exports.handler)

@@ -19,5 +19,18 @@ function createResponse(statusCode, body){
     }
 };
 
+function sampleTest(tableName,input, testFun){
+    process.env.TABLE_NAME = tableName
+    var context = {}
+    context.succeed = function(resp){
+        console.log(resp)
+    }
+    context.fail = function(resp){
+        console.log(resp)
+    }
+    testFun(input, context,null)
+}
+
 module.exports.generateRandomString = generateRandomString
 module.exports.createResponse = createResponse
+module.exports.sampleTest = sampleTest
