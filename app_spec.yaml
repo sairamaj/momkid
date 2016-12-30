@@ -54,7 +54,7 @@ Resources:
         GetResource:
           Type: Api
           Properties:
-            Path: /menuitems
+            Path: /menuitems/{name}
             Method: delete
 
   GetOrdersFunction:

@@ -7,7 +7,7 @@ exports.handler = (event, context) => {
 
     var menuItem = event.name
     if(menuItem === undefined){
-        var menuItem = JSON.parse(event.body).name;
+        menuItem = JSON.parse(event.body).name;
     }
 
     const tableName = process.env.TABLE_NAME;
