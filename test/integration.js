@@ -3,7 +3,7 @@ var fs = require("fs")
 var strStream = require("string-to-stream")
 var request = require("request")
 
-var menuItemsApiUrl = "https://i06du8conc.execute-api.us-west-2.amazonaws.com/Prod/menuitems"
+var menuItemsApiUrl = "https://0ra06lyvq0.execute-api.us-west-2.amazonaws.com/Prod/menuitems"
 
 describe('menuItems tests ', function () {
     this.timeout(15000);
@@ -23,7 +23,7 @@ describe('menuItems tests ', function () {
         console.log(url)
         request.del(url, function (err, response) {
             response.statusCode.should.equal(200, "removeMenuItem returned non 200 status.")
-            console.log(response.body)
+            //console.log(response.body)
             console.log("removed:" + JSON.stringify(newItem))
             done()
         });
