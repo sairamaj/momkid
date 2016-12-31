@@ -4,7 +4,7 @@ var aws = require("./awsFunc")
 var util = require("./util")
 
 exports.handler = (event, context) => {
-
+    console.log("event" + JSON.stringify(event))
     var menuItem = event.name
     if(menuItem === undefined){
         menuItem = JSON.parse(event.body).name;
