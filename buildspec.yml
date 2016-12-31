@@ -7,3 +7,6 @@ artifacts:
   type: zip
   files:
     - new_app_spec.yaml
+    - package.json
+    - test\integration.js
+  
