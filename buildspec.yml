@@ -8,5 +8,7 @@ artifacts:
   files:
     - new_app_spec.yaml
     - package.json
-    - test\integration.js
+    - test/*
+  
+  discard-paths: no
   
