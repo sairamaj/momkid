@@ -24,7 +24,7 @@ exports.handler = (event, context, callback) => {
             context.fail(response);
         }else{
             aws.sendMenuItemRemovedNotification(menuItem);
-            response = util.createResponse(200, event);
+            response = util.createResponse(200, {name:menuItem});
             context.succeed(response);
         }        
     });
