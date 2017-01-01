@@ -27,7 +27,7 @@ exports.handler = (event, context) => {
         }else{
             console.log("sending notification.")
             aws.sendMenuItemAddedNotification(menuItem);
-            response = util.createResponse(200, {name:menuItem});
+            response = util.createResponse(201, {name:menuItem});
             context.succeed(response);
         }
     });

@@ -12,7 +12,7 @@ describe('menuItems tests ', function () {
         // add menuitem
         strStream(JSON.stringify(newItem)).
             pipe(request.post(menuItemsApiUrl, function (err, response) {
-                response.statusCode.should.equal(200, "addMenuItem returned non 200 status.")
+                response.statusCode.should.equal(201, "addMenuItem returned non 201 status.")
                 console.log("added:" + JSON.stringify(newItem))
                 done()
             }));
