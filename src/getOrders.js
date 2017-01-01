@@ -19,4 +19,4 @@ exports.handler = function (event, context, callback) {
     })
 }
 
-// util.sampleTest("momrestaruantorders",null,exports.handler)
+//util.sampleTest("momkid-cert-OrderTable-13WIS9LXNDTY5",null,exports.handler)

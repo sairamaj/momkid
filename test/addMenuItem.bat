@@ -5,7 +5,7 @@ curl -H "Content-Type:application/json" -X POST -d %1  https://tue9tii5q1.execut
 goto exit
 
 :missingjsoninput
-    echo       json input missing ex: {"name": "pasta"}
+    echo       json input missing ex: {\"name\": \"pasta\"}
 :exit
 
     
