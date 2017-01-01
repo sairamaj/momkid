@@ -78,7 +78,7 @@ Resources:
   AddOrderFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: addOrders.handler
+      Handler: addOrder.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBFullAccess
       CodeUri: src
