@@ -3,6 +3,7 @@
     "aws-sdk": "^2.7.19",
     "should" : "11.1.2",
     "request" : "2.79.0",
-    "string-to-stream" : "1.1.0"
+    "string-to-stream" : "1.1.0",
+    "standard" : "8.6.0"
   }
 }

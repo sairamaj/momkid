@@ -1,54 +1,54 @@
 /*
     All aws related functionalities
 */
-'use strict';
-var AWS = require("aws-sdk");
+'use strict'
+var AWS = require('aws-sdk')
 AWS.config.update({
-        region: "us-west-2"
+  region: 'us-west-2'
         //    endpoint: "http://localhost:8000"
-});
-var ses = new AWS.SES()
-var sns = new AWS.SNS();
+})
 
-function readDb(table,callback){
-    var docClient = new AWS.DynamoDB.DocumentClient();
-    var params = {
-        TableName: table,
-    };
+var sns = new AWS.SNS()
 
-    docClient.scan(params, onScan);
-    function onScan(err, data) {
-        if( err){
-            callback(err,null)
-        }else{
-            callback(null,data)
-        }
-    }    
+function readDb (table, callback) {
+  var docClient = new AWS.DynamoDB.DocumentClient()
+  var params = {
+    TableName: table
+  }
+
+  docClient.scan(params, onScan)
+  function onScan (err, data) {
+    if (err) {
+      callback(err, null)
+    } else {
+      callback(null, data)
+    }
+  }
 }
 
-function writeDb(table,data,callback){
-    var docClient = new AWS.DynamoDB.DocumentClient();
-    
-    var params = {
-        TableName:table,
-        Item: data
-    };
+function writeDb (table, data, callback) {
+  var docClient = new AWS.DynamoDB.DocumentClient()
 
-    docClient.put(params,callback);
+  var params = {
+    TableName: table,
+    Item: data
+  }
+
+  docClient.put(params, callback)
 }
 
-function deleteDb(table,key,callback){
-    var docClient = new AWS.DynamoDB.DocumentClient();
-    var params = {
-        TableName:table,
-        Key:key
-    };
+function deleteDb (table, key, callback) {
+  var docClient = new AWS.DynamoDB.DocumentClient()
+  var params = {
+    TableName: table,
+    Key: key
+  }
 
-    docClient.delete(params,callback);
+  docClient.delete(params, callback)
 }
 
-function sendNotification(data,topicArn,callback){
-    var payload = {
+function sendNotification (data, topicArn, callback) {
+  var payload = {
     default: data,
     APNS: {
       aps: {
@@ -57,48 +57,48 @@ function sendNotification(data,topicArn,callback){
         badge: 1
       }
     }
-  };
-  
+  }
+
     // first have to stringify the inner APNS object...
-  payload.APNS = JSON.stringify(payload.APNS);
+  payload.APNS = JSON.stringify(payload.APNS)
   // then have to stringify the entire message payload
-  payload = JSON.stringify(payload);
-  
-   var pubResult = sns.publish({
-        Message: payload,
-        MessageStructure: 'json',
-        TopicArn: topicArn
-    }, callback);
+  payload = JSON.stringify(payload)
+
+  sns.publish({
+    Message: payload,
+    MessageStructure: 'json',
+    TopicArn: topicArn
+  }, callback)
 }
 
-function sendMenuItemAddedNotification(menuItem){
-    sendNotification(menuItem + " has been added","arn:aws:sns:us-west-2:034046765900:kidapp",function(err,response){
-        if(err){
-            console.log("error sending notification:" + err)
-        }else{
-            console.log("successfully sent notifications.")
-        }
-    });
+function sendMenuItemAddedNotification (menuItem) {
+  sendNotification(menuItem + ' has been added', 'arn:aws:sns:us-west-2:034046765900:kidapp', function (err, response) {
+    if (err) {
+      console.log('error sending notification:' + err)
+    } else {
+      console.log('successfully sent notifications.')
+    }
+  })
 }
 
-function sendMenuItemRemovedNotification(menuItem){
-    sendNotification(menuItem + " has been removed","arn:aws:sns:us-west-2:034046765900:kidapp",function(err,response){
-        if(err){
-            console.log("error sending notification:" + err)
-        }else{
-            console.log("successfully sent notifications.")
-        }
-    });
+function sendMenuItemRemovedNotification (menuItem) {
+  sendNotification(menuItem + ' has been removed', 'arn:aws:sns:us-west-2:034046765900:kidapp', function (err, response) {
+    if (err) {
+      console.log('error sending notification:' + err)
+    } else {
+      console.log('successfully sent notifications.')
+    }
+  })
 }
 
-function sendOrderNotification(menuItem){
-    sendNotification(menuItem + " has been ordered","arn:aws:sns:us-west-2:034046765900:MomRestarant",function(err,response){
-        if(err){
-            console.log("error sending notification:" + err)
-        }else{
-            console.log("successfully sent notifications.")
-        }
-    });
+function sendOrderNotification (menuItem) {
+  sendNotification(menuItem + ' has been ordered', 'arn:aws:sns:us-west-2:034046765900:MomRestarant', function (err, response) {
+    if (err) {
+      console.log('error sending notification:' + err)
+    } else {
+      console.log('successfully sent notifications.')
+    }
+  })
 }
 
 module.exports.readDb = readDb
@@ -107,6 +107,4 @@ module.exports.deleteDb = deleteDb
 module.exports.sendMenuItemAddedNotification = sendMenuItemAddedNotification
 module.exports.sendMenuItemRemovedNotification = sendMenuItemRemovedNotification
 module.exports.sendOrderNotification = sendOrderNotification
-
-
 

@@ -6,7 +6,7 @@ var request = require("request")
 var ordersApiUrl = "https://tue9tii5q1.execute-api.us-west-2.amazonaws.com/Prod/orders"
 
 describe("orders tests",function(){
-    
+    this.timeout(15000)
     var newItem = { name: "item_" + Math.floor(Math.random() * 100) + 1 }
     before(function (done) {
         // add order
@@ -24,11 +24,11 @@ describe("orders tests",function(){
 
     it("should read added order",function(done){
         request(ordersApiUrl, function (error, response, body) {
-            response.statusCode.should.equal(201, "getOrders returned non 201 status.")
+            response.statusCode.should.equal(200, "getOrders returned non 201 status.")
             var orders = JSON.parse(body)
-            console.log(orders)
+            //console.log(orders)
             var currentlyAdded = orders.filter(function (item) {
-                return item.name === newItem.name
+                return item.menuitem === newItem.name
             })
             console.log("checking:" + JSON.stringify(newItem))
             currentlyAdded.length.should.eql(1, "not found" + JSON.stringify(newItem))

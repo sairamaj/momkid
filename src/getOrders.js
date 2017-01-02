@@ -1,22 +1,21 @@
-var momRestaruant = require("./momRestaruant")
-var util = require("./util")
+var momRestaruant = require('./momRestaruant')
+var util = require('./util')
 
 exports.handler = function (event, context, callback) {
+  const tableName = process.env.TABLE_NAME
+  console.log('getOrders: tableName:' + tableName)
 
-    const tableName = process.env.TABLE_NAME;
-    console.log("getOrders: tableName:" + tableName )
-
-    var response;
-    momRestaruant.getOrders(tableName,function(err,orders){
-        if( err){
-            console.log(err)
-            response = util.createResponse(500, err);
-            context.fail(response);
-        }else{
-            response = util.createResponse(200, orders);
-            context.succeed(response);
-        }
-    })
+  var response
+  momRestaruant.getOrders(tableName, function (err, orders) {
+    if (err) {
+      console.log(err)
+      response = util.createResponse(500, err)
+      context.fail(response)
+    } else {
+      response = util.createResponse(200, orders)
+      context.succeed(response)
+    }
+  })
 }
 
-//util.sampleTest("momkid-cert-OrderTable-13WIS9LXNDTY5",null,exports.handler)
+// util.sampleTest("momkid-cert-OrderTable-13WIS9LXNDTY5",null,exports.handler)
