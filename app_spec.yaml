@@ -9,7 +9,7 @@ Resources:
       Handler: getMenuItems.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
-      CodeUri: src
+      CodeUri: src\server
       Timeout: 10
       Environment:
         Variables:
@@ -27,7 +27,7 @@ Resources:
       Handler: addMenuItem.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBFullAccess
-      CodeUri: src
+      CodeUri: src\server
       Timeout: 10
       Environment:
         Variables:
@@ -45,7 +45,7 @@ Resources:
       Handler: removeMenuItem.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBFullAccess
-      CodeUri: src
+      CodeUri: src\server
       Timeout: 10
       Environment:
         Variables:
@@ -63,7 +63,7 @@ Resources:
       Handler: getOrders.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBReadOnlyAccess
-      CodeUri: src
+      CodeUri: src\server
       Timeout: 10
       Environment:
         Variables:
@@ -81,7 +81,7 @@ Resources:
       Handler: addOrder.handler
       Runtime: nodejs4.3
       Policies: AmazonDynamoDBFullAccess
-      CodeUri: src
+      CodeUri: src\server
       Timeout: 10
       Environment:
         Variables:
