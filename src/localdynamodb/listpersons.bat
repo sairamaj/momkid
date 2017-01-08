@@ -1,0 +1,1 @@
+aws dynamodb scan --table-name Person --endpoint-url http://localhost:8000
