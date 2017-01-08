@@ -286,7 +286,7 @@ If any code is checked in github (https://github.com/momkid) within minutes code
 iOS 9, push notifications can:
 * Display a short text message
 * Play a notification sound
-* Set a badge number on the app’s icon
+* Set a badge number on the appï¿½s icon
 * Provide actions the user can take without opening the app
 * Be silent, allowing the app to wake up in the background and perform a task
 
@@ -332,8 +332,13 @@ momapp used by mom to take care of his/her kid and it is simple Swift app with o
     * current orders
   * menu
     * list of available menu items (can add/remove)
+it uses the api gateway API to communicate to aws 
 
 ### kidapp
+kidapp used by kid to view the menu items and then make a order. This app uses just one table view to display the menu items
+* main screen
+  * view ( and order a menuitem)
+it uses the api gateway API to communicate to aws
 
 # Some things I learned along the way
 * start everything with aws console and then use aws cli tool to automate 
