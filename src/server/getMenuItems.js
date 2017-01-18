@@ -1,6 +1,7 @@
 var momRestaruant = require('./momRestaruant')
 var util = require('./util')
 
+// adding a comment for demo
 exports.handler = function (event, context, callback) {
   const tableName = process.env.TABLE_NAME
   console.log('getMenuItems: tableName:' + tableName)
