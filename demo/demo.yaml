@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Contact Demo
+
+Resources:
+  GetContactsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getContacts.handler
+      Runtime: nodejs4.3
+      Policies: AmazonDynamoDBReadOnlyAccess
+      CodeUri: src
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ContactsDemo
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /contacts
+            Method: get
+
+  ContactsDemo:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+         Name: name
+         Type: String
+      ProvisionedThroughput:
+         ReadCapacityUnits: 5
+         WriteCapacityUnits: 5
