@@ -2,6 +2,8 @@ var momRestaruant = require('./momRestaruant')
 var util = require('./util')
 
 // adding a comment for demo
+// adding 2nd comment to show that
+// this will be deployed in 10mins.
 exports.handler = function (event, context, callback) {
   const tableName = process.env.TABLE_NAME
   console.log('getMenuItems: tableName:' + tableName)

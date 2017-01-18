@@ -1,0 +1,83 @@
+Agenda
+	- Demo  ( Build a Contacts Api manually)
+	- Automating the above through ClouldFormation
+	- Continous Integration Code Pipeline
+	- https://github.com/sairamaj/momkid/wiki (Sample application (momkid) walk through)
+
+    
+------------------------
+
+
+what is server less architecture?
+	Serverless architectures allow you to build and run applications and services without having to manage infrastructure. 
+	Your application still runs on servers, but all the server management is done by AWS. 
+	You no longer have to provision, scale, and maintain servers to run your applications, databases, and storage systems
+	https://aws.amazon.com/lambda/serverless-architectures-learn-more/
+
+		No operating systems to choose, secure, patch, or manage.
+ 		No servers to right size, monitor, or scale out.
+ 		No risk to your cost by over-provisioning.
+ 		No risk to your performance by under-provisioning.
+
+Accessing AWS	
+-------------
+	- CLI
+	- Console (web interface)
+	- SDK
+	- ClouldFormation ( resource managements)
+
+I have code and needs to run somewhere.Don't care what OS , configuration etc., All I will say is this is my javascript 
+code and run it ( Lambda )
+
+I need persist the data. ( Dynamo db)
+
+I need to access this from outside ( Api Gateway)
+
+Api GateWay -> Lambda -> Dynamo db
+
+I need to set this up from ground up ( clouldformation)
+
+I need to have CI( check in the code and need this new code available to be consumed) ( Code Pipeline)
+
+Let me start by making some change in the code and let aws take care of build, test this new code and deploy.
+    - open source
+	- make a change
+	- check-in
+Lets see whether the process started or not ( code pipeline) 
+while code pipeline is building lets see how we can build serverless manually to start with.
+
+Lets do from back (DynamoDb -> Lambda -> Api Gateway)
+	DynamoDb	
+		- create persondemo
+			- name field
+			- add 2 entries
+	Lambda	
+		- create getPersons
+		- node.js
+			hard code something
+			integrate dynamo db
+	Api Gateway	
+		- create pdemo
+		- add Get Method
+		- publish
+	using 
+		curl - getPersons
+Lets see how we can automate these
+	- demo.yaml
+Lets do CI
+
+SNS
+	- 
+Cloud logs
+
+- if time permits go thorough
+   https://github.com/sairamaj/momkid/wiki
+
+
+
+			
+
+
+
+
+
